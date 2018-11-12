@@ -1,0 +1,97 @@
+<template>
+  <qf-page-body class="inventory-in-view" :menu="menu">
+
+    <div slot="actions">
+      <inventory-button :bill="bill" @getDetail="doGetDetail"></inventory-button>
+    </div>
+
+    <qf-bill-body>
+      <qf-bill-view-title slot="title" title="入库单" :status="status">
+        <span slot="tips">单号：{{bill.billNum}}</span>
+        <div slot="actions">
+          <qf-button type="default" @click="prev">上一单</qf-button>
+          <qf-button type="default" @click="next">下一单</qf-button>
+        </div>
+      </qf-bill-view-title>
+
+      <qf-row slot="header">
+        <qf-col :span="8">
+          <qf-form-item label="入库仓库：">
+            <span class="line-height-36" v-if="bill.warehouse && bill.warehouse.name">{{bill.warehouse.name}}</span>
+          </qf-form-item>
+        </qf-col>
+        <qf-col :span="8">
+          <qf-form-item label="经办人：">
+            <span class="line-height-36" v-if="bill.manager && bill.manager.name">{{bill.manager.name}}</span>
+          </qf-form-item>
+        </qf-col>
+        <qf-col :span="8">
+          <qf-form-item label="业务日期：">
+            <span class="line-height-36">{{bill.businessDate | dateFormatter }}</span>
+          </qf-form-item>
+        </qf-col>
+      </qf-row>
+      <qf-row slot="header">
+        <qf-col :span="8">
+          <qf-form-item label="关联业务：">
+            <span class="line-height-36" v-if="bill.source && bill.source.billNum">{{bill.source.billType | businessType}}{{'  ' + bill.source.billNum}}</span>
+          </qf-form-item>
+        </qf-col>
+        <qf-col :span="8">
+          <qf-form-item label="往来单位：">
+            <span class="line-height-36">{{bill.source ? bill.source.billName : ''}}</span>
+          </qf-form-item>
+        </qf-col>
+        <qf-col :span="8">
+          <qf-form-item label="订单号：">
+            <span class="line-height-36">{{bill.externalBillNum}}</span>
+          </qf-form-item>
+        </qf-col>
+      </qf-row>
+
+      <inventory-view-table slot="table" :data="bill.lines"></inventory-view-table>
+
+      <qf-row slot="remark">
+        <qf-col :span="24">
+          <qf-form-item label="备注：">
+            <span class="line-height-36">{{bill.remark}}</span>
+          </qf-form-item>
+        </qf-col>
+      </qf-row>
+
+      <p slot="operateLog" class="font-tips" v-if="bill.creator && bill.creator.name">制单：{{bill.creator.name}}
+        {{bill.created}}</p>
+      <p slot="operateLog" class="font-tips"
+         v-if="bill.lastModifier && bill.lastModifier.name && bill.status !== 'UNAUDITED'">入库：{{bill.lastModifier.name}}
+        {{bill.lastModified}}</p>
+
+      <div slot="bottomActions">
+        <inventory-button :bill="bill" @getDetail="doGetDetail"></inventory-button>
+      </div>
+
+    </qf-bill-body>
+
+  </qf-page-body>
+</template>
+
+<script lang="ts" src="./InventoryInView.ts"></script>
+
+<style lang="scss">
+  @import '~styles/var.scss';
+
+  .inventory-in-view {
+
+    .line-height-36 {
+      display: block;
+      line-height: 20px;
+      padding: 8px 0;
+      word-wrap: break-word;
+    }
+
+    .font-tips {
+      line-height: 36px;
+      color: $--color-placeholder;
+    }
+
+  }
+</style>

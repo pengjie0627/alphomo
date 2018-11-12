@@ -1,0 +1,353 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+// import store from 'store'
+import Component from 'vue-class-component';
+import ApiClient from 'http/ApiClient';
+import login from 'pages/auth/login.vue'
+
+Vue.use(Router);
+
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate' // for vue-router 2.2+
+]);
+
+const router = new Router({
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      meta: {requiresAuth: false},
+      component: resolve => require(['pages/auth/Login.vue'], resolve)
+    },
+    {
+      path: '/register',
+      name: 'register',
+      meta: {requiresAuth: false},
+      component: resolve => require(['pages/auth/Register.vue'], resolve)
+    },
+    {
+      path: '/main',
+      name: 'main',
+      meta: {requiresAuth: false},
+      component: resolve => require(['pages/main/MainFrame.vue'], resolve),
+      children: [
+        {
+          path: '/home',
+          name: 'home',
+          alias: '',
+          component: resolve => require(['pages/home/Home.vue'], resolve)
+        },
+        {
+          path: '/saleList',
+          name: 'saleList',
+          alias: '',
+          component: resolve => require(['pages/sale/SaleList.vue'], resolve)
+        },
+        {
+          path: '/saleEdit',
+          name: 'saleEdit',
+          alias: '',
+          component: resolve => require(['pages/sale/SaleEdit.vue'], resolve)
+        },
+        {
+          path: '/saleView',
+          name: 'saleView',
+          alias: '',
+          component: resolve => require(['pages/sale/SaleView.vue'], resolve)
+        },
+        {
+          path: '/saleReturnList',
+          name: 'saleReturnList',
+          alias: '',
+          component: resolve => require(['pages/salereturn/SaleReturnList.vue'], resolve)
+        },
+        {
+          path: '/saleReturnEdit',
+          name: 'saleReturnEdit',
+          alias: '',
+          component: resolve => require(['pages/salereturn/SaleReturnEdit.vue'], resolve)
+        },
+        {
+          path: '/saleReturnView',
+          name: 'saleReturnView',
+          alias: '',
+          component: resolve => require(['pages/salereturn/SaleReturnView.vue'], resolve)
+        },
+        {
+          path: '/receivableList',
+          name: 'receivableList',
+          alias: '',
+          component: resolve => require(['pages/receivable/ReceivableList.vue'], resolve)
+        },
+        {
+          path: '/receivableView',
+          name: 'receivableView',
+          alias: '',
+          component: resolve => require(['pages/receivable/ReceivableView.vue'], resolve)
+        },
+        {
+          path: '/receiptBillEdit',
+          name: 'receiptBillEdit',
+          alias: '',
+          component: resolve => require(['pages/receivable/ReceiptBillEdit.vue'], resolve)
+        },
+        {
+          path: '/receiptBillView',
+          name: 'receiptBillView',
+          alias: '',
+          component: resolve => require(['pages/receivable/ReceiptBillView.vue'], resolve)
+        },
+        {
+          path: '/payableList',
+          name: 'payableList',
+          alias: '',
+          component: resolve => require(['pages/payable/PayableList.vue'], resolve)
+        },
+        {
+          path: '/payableView',
+          name: 'payableView',
+          alias: '',
+          component: resolve => require(['pages/payable/PayableView.vue'], resolve)
+        },
+        {
+          path: '/payBillEdit',
+          name: 'payBillEdit',
+          alias: '',
+          component: resolve => require(['pages/payable/PayBillEdit.vue'], resolve)
+        },
+        {
+          path: '/payBillView',
+          name: 'payBillView',
+          alias: '',
+          component: resolve => require(['pages/payable/PayBillView.vue'], resolve)
+        },
+        {
+          path: '/purchaseList',
+          name: 'purchaseList',
+          alias: '',
+          component: resolve => require(['pages/purchase/PurchaseList.vue'], resolve)
+        },
+        {
+          path: '/purchaseEdit',
+          name: 'purchaseEdit',
+          alias: '',
+          component: resolve => require(['pages/purchase/PurchaseEdit.vue'], resolve)
+        },
+        {
+          path: '/purchaseView',
+          name: 'purchaseView',
+          alias: '',
+          component: resolve => require(['pages/purchase/PurchaseView.vue'], resolve)
+        },
+        {
+          path: '/purchaseReturnList',
+          name: 'purchaseReturnList',
+          alias: '',
+          component: resolve => require(['pages/purchasereturn/PurchaseReturnList.vue'], resolve)
+        },
+        {
+          path: '/purchaseReturnEdit',
+          name: 'purchaseReturnEdit',
+          alias: '',
+          component: resolve => require(['pages/purchasereturn/PurchaseReturnEdit.vue'], resolve)
+        },
+        {
+          path: '/purchaseReturnView',
+          name: 'purchaseReturnView',
+          alias: '',
+          component: resolve => require(['pages/purchasereturn/PurchaseReturnView.vue'], resolve)
+        },
+        // 查询库存
+        {
+          path: '/inventoryList',
+          name: 'inventoryList',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryList.vue'], resolve)
+        },
+        // 库存流水
+        {
+          path: '/inventoryFlow',
+          name: 'inventoryFlow',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryFlow.vue'], resolve)
+        },
+        // 入库管理
+        {
+          path: '/inventoryInList',
+          name: 'inventoryInList',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryInList.vue'], resolve)
+        },
+        // 出库管理
+        {
+          path: '/inventoryOutList',
+          name: 'inventoryOutList',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryOutList.vue'], resolve)
+        },
+        // 入库单入库
+        {
+          path: '/inventoryInEdit',
+          name: 'inventoryInEdit',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryInEdit.vue'], resolve)
+        },
+        // 入库单详情
+        {
+          path: '/inventoryInView',
+          name: 'inventoryInView',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryInView.vue'], resolve)
+        },
+        // 出库单详情
+        {
+          path: '/inventoryOutView',
+          name: 'inventoryOutView',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryOutView.vue'], resolve)
+        },
+        // 出库单出库
+        {
+          path: '/inventoryOutEdit',
+          name: 'inventoryOutEdit',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryOutEdit.vue'], resolve)
+        },
+        // 调拨单列表
+        {
+          path: '/inventoryTransferList',
+          name: 'inventoryTransferList',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryTransferList.vue'], resolve)
+        },
+        // 调拨单编辑
+        {
+          path: '/inventoryTransferEdit',
+          name: 'inventoryTransferEdit',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryTransferEdit.vue'], resolve)
+        },
+        // 调拨单详情
+        {
+          path: '/inventoryTransferView',
+          name: 'inventoryTransferView',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryTransferView.vue'], resolve)
+        },
+        // 盘点单列表
+        {
+          path: '/inventoryCheckList',
+          name: 'inventoryCheckList',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryCheckList.vue'], resolve)
+        },
+        // 盘点单编辑
+        {
+          path: '/inventoryCheckEdit',
+          name: 'inventoryCheckEdit',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryCheckEdit.vue'], resolve)
+        },
+        // 盘点单编辑
+        {
+          path: '/inventoryCheckView',
+          name: 'inventoryCheckView',
+          alias: '',
+          component: resolve => require(['pages/inventory/InventoryCheckView.vue'], resolve)
+        },
+        {
+          path: '/saleRptList',
+          name: 'saleRptList',
+          alias: '',
+          component: resolve => require(['pages/report/SaleRptList.vue'], resolve)
+        },
+        {
+          path: '/sellRptList',
+          name: 'sellRptList',
+          alias: '',
+          component: resolve => require(['pages/report/SellRptList.vue'], resolve)
+        },
+        {
+          path: '/storageRptList',
+          name: 'storageRptList',
+          alias: '',
+          component: resolve => require(['pages/report/StorageRptList.vue'], resolve)
+        },
+        {
+          path: '/balanceRptList',
+          name: 'balanceRptList',
+          alias: '',
+          component: resolve => require(['pages/report/BalanceRptList.vue'], resolve)
+        },
+        {
+          path: '/rptStorageSkuDtl',
+          name: 'rptStorageSkuDtl',
+          alias: '',
+          component: resolve => require(['pages/report/RptStorageSkuDtl.vue'], resolve)
+        },
+        {
+          path: '/rptSaleSkuDtl',
+          name: 'rptSaleSkuDtl',
+          alias: '',
+          component: resolve => require(['pages/report/RptSaleSkuDtl.vue'], resolve)
+        },
+        {
+          path: '/rptSellSkuDtl',
+          name: 'rptSellSkuDtl',
+          alias: '',
+          component: resolve => require(['pages/report/RptSellSkuDtl.vue'], resolve)
+        }
+      ]
+    }
+  ]
+});
+
+var lastUpdate = null;
+var versionUpdated = false;
+const updateChecker = window.setInterval(() => {
+  var path = window.location.pathname;
+  if (path.indexOf('index.html') < 0) {
+    path += '/index.html';
+  }
+  ApiClient.file(window.location.origin).get(path).then(resp => {
+    let lastModified = new Date(resp.headers['last-modified']);
+    if (!isNaN(lastModified)) {
+      if (lastUpdate === null) {
+        lastUpdate = lastModified;
+      } else if (lastUpdate.getTime() !== lastModified.getTime()) {
+        versionUpdated = true;
+        window.clearInterval(updateChecker);
+      }
+    }
+  });
+}, 60000);
+
+router.beforeEach((to, from, next) => {
+  if (versionUpdated) {
+    if (to.name === 'login') {
+      router.doNext(to, from, next);
+      window.location.reload(true);
+    } else {
+      // MessageBox.info('更新啦!', '我们正在为产品而努力，刚刚已悄悄更新了版本，点击确定后会刷新界面哦 ^_^', () => {
+      //   router.doNext(to, from, next)
+      //   window.location.reload(true)
+      // })
+      router.doNext(to, from, next)
+    }
+  } else {
+    router.doNext(to, from, next);
+  }
+});
+
+router.doNext = function (to, from, next) {
+  // 非登录用户退回登录界面
+  // if (!store.state.user && to.meta.requiresAuth !== false) {
+  //   next('/login')
+  // } else {
+  next();
+  // }
+};
+
+export default router;

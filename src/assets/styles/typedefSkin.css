@@ -1,0 +1,74 @@
+.qf-button-primary{
+  background-color: #5084F3 !important;
+  border: 1px solid #5084F3 !important;
+  box-shadow: 0 1px 3px 0 #5084F3 !important;
+}
+.qf-nav-group.is-selected{
+  background-color: #5084F3 !important;
+}
+.qf-radio-button .qf-radio-button__orig-radio:checked+.qf-radio-button__inner{
+  background-color: #5084F3 !important;
+  border: 1px solid #5084F3 !important;
+  box-shadow: -1px 0 0 0 #5084F3;
+}
+.qf-pagination .qf-pager li.active{
+  background-color: #5084F3 !important;
+}
+.qf-nav-item.is-current{
+  color: #5084F3 !important;
+  background: #ebeef5 !important;
+}
+.qf-nav-item:hover{
+  background: none;
+  color: #5084F3;
+  border-right: none;
+}
+.qf-button-default:hover{
+  box-shadow: 0 1px 3px 0 rgba(80,132,243,.1) !important;
+  border: 1px solid #5084F3 !important;
+  background-color: rgba(80,132,243,.1) !important;
+}
+.qf-button.qf-button-link:hover{
+  color: #183e8e;
+}
+.qf-radio .qf-radio-input.is-checked .qf-radio-inner{
+  background-color: #5084F3 !important;
+  border: 1px solid #5084F3 !important;
+}
+.qf-checkbox .qf-checkbox-input.is-checked .qf-checkbox-inner:after{
+  /*border: 3px solid #5084F3;*/
+  transform: rotate(45deg) scaleY(1);
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  content: "";
+  border: 3px solid #5084F3;
+  border-left: 0;
+  border-top: 0;
+  height: 9px;
+  left: 6px;
+  position: absolute;
+  top: 2px;
+  width: 3px;
+  transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms,-webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+}
+.qf-nav-group .menu-popper .hover-item:hover{
+  border-right: none;
+  color: #5084F3;
+  background: none;
+}
+.qf-date-editor .qf-range-input{
+  height: auto !important;
+}
+.loading .loading-content .loading-icon{
+  background: transparent  url("~images/ic_loading.svg") no-repeat;
+  background-size: 100%;
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/*.st0{*/
+  /*fill:#5084F3 !important;*/
+/*}*/
